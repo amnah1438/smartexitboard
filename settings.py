@@ -2,20 +2,19 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# مفتاح السر يجب تغييره في الإنتاج
+# مفتاح السر (لازم يُغيّر في الإنتاج)
 SECRET_KEY = 'django-insecure-m@&_w6s15q(a2hmp(f#fbak-)&2io%58=2+_4a9&g1z^#6wd)!'
 
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # --------------------------------------------------
 # 📌 التطبيقات المثبّتة (مع إضافة تطبيقات المشروع)
 # --------------------------------------------------
 
 INSTALLED_APPS = [
-    # تطبيقات Django الرئيسية
+    # تطبيقات Django الأساسية
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -34,7 +33,6 @@ INSTALLED_APPS = [
     'notifications',
 ]
 
-
 # --------------------------------------------------
 # 📌 الـ Middleware
 # --------------------------------------------------
@@ -49,21 +47,24 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-
 ROOT_URLCONF = 'smartexitboard.urls'
-
 
 # --------------------------------------------------
 # 📌 إعدادات القوالب (Templates)
 # --------------------------------------------------
+# هنا ربطنا Django بمجلد templates العام
+# الذي يحتوي مجلدات: core-templates / students-templates / ...الخ
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],  # مسارات القوالب إذا احتجتي لاحقًا
+        'DIRS': [
+            BASE_DIR / 'templates',   # <--- التعريف الصحيح لمجلد القوالب
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -72,9 +73,7 @@ TEMPLATES = [
     },
 ]
 
-
 WSGI_APPLICATION = 'smartexitboard.wsgi.application'
-
 
 # --------------------------------------------------
 # 📌 قاعدة البيانات
@@ -87,7 +86,6 @@ DATABASES = {
     }
 }
 
-
 # --------------------------------------------------
 # 📌 التحقق من كلمات المرور
 # --------------------------------------------------
@@ -99,16 +97,14 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-
 # --------------------------------------------------
 # 📌 إعدادات اللغة والمنطقة الزمنية
 # --------------------------------------------------
 
-LANGUAGE_CODE = 'ar'              # اللغة العربية
-TIME_ZONE = 'Asia/Riyadh'         # توقيت السعودية
-USE_I18N = True                   
-USE_TZ = True                     
-
+LANGUAGE_CODE = 'ar'
+TIME_ZONE = 'Asia/Riyadh'
+USE_I18N = True
+USE_TZ = True
 
 # --------------------------------------------------
 # 📁 الملفات الثابتة (Static Files)
@@ -117,7 +113,6 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATICFILES_DIRS = []
 STATIC_ROOT = BASE_DIR / "staticfiles"
-
 
 # --------------------------------------------------
 # 📌 الإعداد الافتراضي لمعرّف الحقول
