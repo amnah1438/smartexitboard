@@ -4,23 +4,25 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    # لوحة إدارة Django
     path('admin/', admin.site.urls),
 
-    # روابط التطبيقات (عندما نضيف views لاحقًا سنربطها هنا)
-    path('', include('core.urls')),              # الصفحة الرئيسية
-    path('students/', include('students.urls')),
-    path('teachers/', include('teachers.urls')),
-    path('schedule/', include('schedule.urls')),
-    path('exit/', include('exit_requests.urls')),
-    path('display/', include('display_board.urls')),
-    path('dashboard/', include('dashboard.urls')),
-    path('notify/', include('notifications.urls')),
+    # ==============================
+    # 🌐 روابط التطبيقات
+    # ==============================
+    path('', include('core.urls')),               # الصفحة الرئيسية
+    path('students/', include('students.urls')),  # إدارة الطالبات + API
+    path('teachers/', include('teachers.urls')),  # المعلمات
+    path('schedule/', include('schedule.urls')),  # جدول الحصص
+    path('exit/', include('exit_requests.urls')), # الاستئذانات
+    path('display/', include('display_board.urls')),  # شاشة العرض
+    path('dashboard/', include('dashboard.urls')),    # لوحة التحكم
+    path('notify/', include('notifications.urls')),   # الإشعارات / واتساب
 ]
 
-# ------------------------------------------------------
-# 📁 دعم ملفات static و media أثناء التطوير (Development)
-# ------------------------------------------------------
-
+# ==============================
+# 📁 دعم ملفات STATIC + MEDIA أثناء التطوير
+# ==============================
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
